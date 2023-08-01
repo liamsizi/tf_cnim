@@ -1,0 +1,40 @@
+{% extends "acceuil.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            {% for commentaire in commentaires %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="card-text">{{ commentaire.contenu }}</p>
+                        <small class="text-muted">Posté par {{ commentaire.utilisateur.username }} le {{ commentaire.date_creation }}</small>
+
+                        {% if commentaire.utilisateur == request.user %}
+                            <form action="{% url 'supprimer_commentaire' commentaire.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm float-right">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="contenu">Ajouter un commentaire :</label>
+                            <textarea class="form-control" id="contenu" name="contenu" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Soumettre</button>
+                    </form>
+
+                </div>
+            </div>
+            <p><a href="{% url 'afficherProjet' %}" class="btn btn-secondary">Retour à la page d'accueil</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

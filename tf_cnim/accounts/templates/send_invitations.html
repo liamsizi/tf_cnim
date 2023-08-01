@@ -1,0 +1,7 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="email_list">Entrez les adresses e-mail séparées par des virgules :</label>
+    <input type="text" name="email_list" id="email_list" required>
+    <button type="submit">Envoyer les invitations</button>
+</form>
+<p><a href="{% url 'acceuil' %}">retour a la page d'acceuil</a></p>

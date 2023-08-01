@@ -1,0 +1,65 @@
+{% extends "acceuil.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+<br>
+<h1 class="row justify-content-center">les opérations de la tâche {{tache.nom}}</h1>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">opération</th>
+        <th scope="col">statut</th>
+        <th scope="col">créé par</th>
+        <th scope="col">delete</th>
+        <th scope="col">update</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for operation in operations %}
+            <tr>
+                <td>{{ operation.nom }}</a></td>
+                <td>{% if operation.crée_par == request.user %}
+          <form method="POST" action="{% url 'update_op_status' operation.id %}">
+            {% csrf_token %}
+            <select name="status">
+              <option value="bloque" {% if operation.status == 'bloque' %}selected{% endif %}>Bloqué</option>
+              <option value="en_cours" {% if operation.status == 'en_cours' %}selected{% endif %}>En cours</option>
+              <option value="termine" {% if operation.status == 'termine' %}selected{% endif %}>Terminé</option>
+            </select>
+            <input type="submit" value="Mettre à jour">
+          </form>
+        {% else %}
+          {{ operation.get_status_display }}
+        {% endif %}
+                    </td>
+                <td>{{ operation.crée_par.email }}</td>
+                <td>
+                    {% if operation.crée_par == request.user %}
+                        <a href="{% url 'deleteOperation' operation.id %}">delete</a>
+                    {% else %}
+
+                    {% endif %}
+                </td>
+                <td>
+                    {% if operation.crée_par == request.user %}
+                        <a href="{% url 'updateOperation' operation.id %}">update</a>
+                    {% else %}
+
+                    {% endif %}
+                </td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p></p>
+<p><a class="btn btn-success" href="{% url 'ajouterOperation' %}?tache_id={{ tache.id }}">ajouter une opération</a></p>
+<p><a class="btn btn-secondary" href="{% url 'afficherProjet' %}">retour à la page d'accueil</a></p>
+</body>
+{% endblock %}
+</html>
+

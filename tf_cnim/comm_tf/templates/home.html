@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+    <div class="container">
+        <h1 class="row justify-content-center">Bienvenue sur la plateforme CNIM BABCOCK MAROC,</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <br>
+                {% if not user.is_authenticated%}
+                    <h6>si vous avez un compte :</h6>
+                    <a class="btn btn-success" href="{% url 'login' %}">Connexion</a>
+                <br>
+                <br>
+                    <h6>sinon :</h6>
+                    <a class="btn btn-secondary" href="{% url 'signup' %}" >S'inscrire</a>
+    {% endif %}
+{% endblock %}

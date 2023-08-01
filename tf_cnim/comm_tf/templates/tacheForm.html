@@ -1,0 +1,31 @@
+{% extends "acceuil.html" %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>ajouterTache</title>
+    <!-- Intégrer Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <br>
+            <h2>Modifier la tâche</h2>
+            <form method="POST" class="mt-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-success">Modifier</button>
+            </form>
+            <p class="mt-2"><a href="{% url 'afficherProjet' %}" class="btn btn-secondary">Retour à la page d'accueil</a></p>
+        </div>
+    </div>
+</div>
+<!-- Intégrer le script Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}
+</html>

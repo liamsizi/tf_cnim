@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load tz %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light bg-dark shadow">
+    <div class="container">
+      <a class="navbar-brand text-white" >Comme_tf</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'ajouterProjet' %}">Ajouter un Projet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'commentaire' %}">liste des commentaires</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'logout' %}" >Déconnexion</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+    <br>
+    <h2 class="row justify-content-center">Bonjour, {{user.username| upper}} </h2>
+    <br>
+    <h3 class="row justify-content-center">Aujourd'hui,nous somme le {{ current_date}} </h3>
+<h3>Voici,vos projets :</h3>
+<br>
+<body>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">statut</th>
+                <th>créé par</th>
+                <th scope="col">delete</th>
+                <th scope="col">update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for projet in projets %}
+                <tr>
+                    <td scope="row">
+                          <a href="{% url 'detailProjet' projet.id %}">{{ projet.nom }}
+                    <td>{{ projet.get_status_display }}</td>
+      <td>{{ projet.created_by.email }}</td>
+      <td>
+        {% if projet.created_by == request.user %}
+          <a href="{% url 'deleteProjet' projet.id %}">delete</a>
+        {% else %}
+
+        {% endif %}</td>
+
+         <td>{% if projet.created_by == request.user %}
+          <a href="{% url 'updateProjet' projet.id %}">update</a>
+        {% else %}
+
+        {% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer class="bg-dark p-3">
+        <p class="text-center text-white">Tout droit réservé,CNIM BABCOCK MAROC,réalisé par ZITOUNI ISMAIL</p>
+</footer>
+{% endblock %}

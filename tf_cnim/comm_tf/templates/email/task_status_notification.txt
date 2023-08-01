@@ -1,0 +1,6 @@
+Hello,
+
+The status of the task '{{ tache.nom }}' has changed to '{{ tache.get_status_display }}'.
+
+Best regards,
+Your Application Team

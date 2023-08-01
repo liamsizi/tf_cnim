@@ -1,0 +1,37 @@
+{% extends "acceuil.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+    <body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="mt-4">Inscrivez-vous</h2>
+                <form method="POST" class="mt-4">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <p>
+                        <label for="username">Nom d'utilisateur</label>
+                        <input id="username" type="text" name="username" required />
+                    </p>
+                    <p>
+                        <label for="password">Mot de passe</label>
+                        <input id="password" type="password" name="password" required />
+                    </p>
+                    <p>
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" required />
+                    </p>
+                    <p>
+                        <label for="password">Password_society</label>
+                        <input id="Password_societe" type="password" name="Password_societe" required />
+                    </p>
+                    </div>
+                    <button type="submit" class="btn btn-success">S'inscrire</button>
+                </form>
+    </body>
+</html>
+{% endblock %}

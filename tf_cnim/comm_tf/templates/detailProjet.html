@@ -1,0 +1,54 @@
+{% extends "acceuil.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+<br>
+<h1 class="row justify-content-center">les tâches du projet {{projet.nom}}</h1>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">tâche</th>
+        <th scope="col">statut</th>
+        <th scope="col">créé par</th>
+        <th scope="col">delete</th>
+        <th scope="col">update</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for tache in taches %}
+            <tr>
+                <td><a href="{% url 'detailTache' tache.id %}">{{ tache.nom }}</td>
+                <td>
+          {{ tache.get_status_display }}
+                    </td>
+                <td>{{ tache.created_by.email }}</td>
+                <td>
+                    {% if tache.created_by == request.user %}
+                        <a href="{% url 'deleteTache' tache.id %}">delete</a>
+                    {% else %}
+
+                    {% endif %}
+                </td>
+                <td>
+                    {% if tache.created_by == request.user %}
+                        <a href="{% url 'updateTache' tache.id %}">update</a>
+                    {% else %}
+
+                    {% endif %}
+                </td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p></p>
+<p><a class="btn btn-success" href="{% url 'ajouterTache' %}?projet_id={{ projet.id }}">ajouter une tâche</a></p>
+<p><a class="btn btn-secondary" href="{% url 'afficherProjet' %}">retour à la page d'accueil</a></p>
+</body>
+{% endblock %}
+</html>
+
